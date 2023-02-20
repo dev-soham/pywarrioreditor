@@ -8,6 +8,7 @@
 - [x] Pylint Integration
 - [ ] Improve GUI
 - [ ] Improve in-build Code Editor
+- [ ] Refactor Code of this week
 
 <br>
 
