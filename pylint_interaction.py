@@ -17,7 +17,13 @@ def get_score(filepath):
     output = output_stream.read()
     for index in range(len(output.split())):
         if output.split()[index] == 'at':
-            return output.split()[index + 1].replace('/10', '')
+            score_str = output.split()[index + 1].replace('/10', '')
+            
+            try:
+                score = float(score_str)
+            except ValueError:
+                return 0.0
+            return score
 
 
 def get_output_lines(filepath) -> list:

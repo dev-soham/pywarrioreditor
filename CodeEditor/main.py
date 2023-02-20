@@ -1,5 +1,22 @@
 from tkinter import *
 
+def init():
+    scrollbar = Scrollbar(root)
+    scrollbar.pack(side=RIGHT, fill=Y)
+
+    text = Text(root, yscrollcommand=scrollbar.set)
+    text.pack(fill=BOTH)
+
+    text.bind("<Control-c>", copy_text)
+    text.bind("<Control-a>", select_text)
+    text.bind("<Control-x>", cut_text)
+
+    scrollbar.config(command=text.yview)
+
+    submit_button = Button(root, text="Submit", command=submit_text)
+    submit_button.pack()
+
+
 def copy_text(event=None):
     text.clipboard_clear()
     text.clipboard_append(text.selection_get())
@@ -18,23 +35,10 @@ def submit_text(event=None):
 
 root = Tk()
 root.geometry("350x250")
-root.title("Sticky Notes")
+root.title("Code Editor")
 root.minsize(height=250, width=350)
 root.maxsize(height=250, width=350)
 
-scrollbar = Scrollbar(root)
-scrollbar.pack(side=RIGHT, fill=Y)
-
-text = Text(root, yscrollcommand=scrollbar.set)
-text.pack(fill=BOTH)
-
-text.bind("<Control-c>", copy_text)
-text.bind("<Control-a>", select_text)
-text.bind("<Control-x>", cut_text)
-
-scrollbar.config(command=text.yview)
-
-submit_button = Button(root, text="Submit", command=submit_text)
-submit_button.pack()
+init()
 
 root.mainloop()
