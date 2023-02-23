@@ -1,5 +1,3 @@
-""" PRINT HELLO WORLD """
-print('Hello World')
-a = 10
-
-
+""" HELLO """
+print("HELLO WORLD")
+if if if if 
