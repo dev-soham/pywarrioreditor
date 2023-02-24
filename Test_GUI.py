@@ -118,19 +118,5 @@ submit_btn.pack(pady=(10, 10), padx=(10, 10), fill='both', side='bottom')
 submit_btn['fg'] = 'gold'
 submit_btn['bg'] = 'black'
 
-
-
-# # Right part for buttons and warnings
-# right_frame = Frame(root, bg = 'blue')
-# right_frame.pack(side='left', expand=True, fill='both')
-
-# for i in range(3):
-#     wp.append(WarningPrefab(root, right_frame, i))
-
-# submit_btn = Button(right_frame, height=get_per_of_num(height, .3), text='SUBMIT', font=("Arial", 18), command=lambda: onclick_btn_submit(ce.text))
-# submit_btn.pack(pady=(0, 10), padx=(10, 10), fill=BOTH, side=BOTTOM)
-# submit_btn['fg']="gold"
-# submit_btn['bg']="black"
-
 root.mainloop()
 #endregion
