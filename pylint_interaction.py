@@ -53,16 +53,3 @@ def get_output_warnings(filepath) -> list:
 # pylint's warning:
 # format = filename.py:linenum:colnum: warning_code: warning message (warning msg inshort)
 # example = Test.py:6:0: C0103: Constant name "c" doesn't conform to UPPER_CASE naming style (invalid-name)
-
-# let's imagine player have 4 warnings in some specific task of a level
-# what player can do :
-#   1. pay some coins to get warning highlight or details
-#   2. 
-
-
-
-# db : u3
-# os : u3
-# os : u4
-# pp : u4
-# se : u3
