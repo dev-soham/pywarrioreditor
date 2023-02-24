@@ -2,7 +2,7 @@
 from tkinter import *
 from t_code_editor import CodeEditor
 from pylint_interaction import *
-from warning_prefab import *
+from prefabs import *
 #endregion
 
 #region UDF
