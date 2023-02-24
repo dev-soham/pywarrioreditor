@@ -1,6 +1,6 @@
 #region Modules
 from tkinter import *
-from t_code_editor import CodeEditor
+from code_editor import *
 from pylint_interaction import *
 from prefabs import *
 #endregion
