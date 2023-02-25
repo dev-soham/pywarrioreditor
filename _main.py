@@ -2,10 +2,13 @@
 from tkinter import *
 from code_editor import *
 from pylint_interaction import *
-from prefabs import *
+from Box import *
 #endregion
 
 #region UDF
+def is_exists(var):
+    return var in locals() or var in globals()
+
 def get_per_of_num(num, per, returnInt=True):
     if returnInt:
         return int((per/100) * num)
@@ -19,39 +22,37 @@ def onclick_btn_submit(text):
     with open(filepath, 'w') as f:
         f.write(code)
     # pass file to the pylint_interaction for getting score
-    ce.console['text'] = f'score : {get_score(filepath)}'
+    score_lbl['text'] = f'Current Score : {get_score(filepath)}'
 
     # update WarningPrefab
     update_wp()
 
     global cp
     global ep
-    if get_score(filepath) == 10.0 and len(wp) == 0:
-        cp = CompletedPrefab(inner_frame)
-        del ep
 
-    elif cp is not None:
-        del cp
+    if get_score(filepath) == 10.0:
+        CustomBox(inner_frame, CustomBox.COMPLETED)
 
-    if get_score(filepath) == None:
-        ep = ErrorPrefab(inner_frame)
-
-    else:
-        del ep
+    elif get_score(filepath) is None:
+        CustomBox(inner_frame, CustomBox.ERROR)
 
 
 def update_wp():
-    if len(wp) >= 1:
-        del wp[:]
-        update_wp()
-    else:
-        for a in get_output_warnings(filepath):
-            wp.append(WarningPrefab(inner_frame, a))
+    # Clear the existing warning boxes
+    for box in wp:
+        box.delete_box()
+    wp.clear()
+
+    # Add new warning boxes based on the updated warnings
+    for warning in get_output_warnings(filepath):
+        wp.append(CustomBox(inner_frame, CustomBox.WARNING, warning))
+
+
             
 #endregion
 
 #region Variables
-filepath = 'level1_code_file.py'
+filepath = 'temp_code_file.py'
 global wp
 wp = []
 cp = None
@@ -60,6 +61,7 @@ ep = None
 
 #region Main
 root = Tk()
+root.title('PW Editor')#='PW Editor'
 width = root.winfo_screenwidth()
 height = root.winfo_screenheight()
 root.geometry("%dx%d" % (width, height))
@@ -68,17 +70,23 @@ root.geometry("%dx%d" % (width, height))
 header = Frame(root, bg="black", height=50, width=width)
 header.pack()
 
-def_label = Label(header, text="Defination", fg="gold", bg='black', font=("Monospace", 18), width=get_per_of_num(width, 7.54))
+def_label = Label(header, text="A platform to measure Python code optimization and readability.", fg="gold", bg='black', font=("Monospace", 18), width=get_per_of_num(width, 7.54))
 def_label.pack(padx=10, pady=10)
 
+# Footer
+footer = Frame(root, bg="lightblue", height=70, width=100)
+footer.pack(fill=X, side=BOTTOM)
+footer.pack_propagate(0)
+
+
 #  Left part for editor
-left_frame = Frame(root, bg = 'red')
-left_frame.pack(side='left', expand=True, fill=BOTH)
+left_frame = Frame(root, bg = '#282828')
+left_frame.pack(side=LEFT, fill=BOTH, expand=True)
 ce = CodeEditor(left_frame)
 ce.load_text(filepath)
 
 # Right part for buttons and warnings
-right_frame = Frame(root, bg='blue')
+right_frame = Frame(root, bg='#282828')
 right_frame.pack(side='left', expand=True, fill='both')
 
 # Create a container frame for the warnings prefabs
@@ -98,7 +106,7 @@ scrollbar.config(command=canvas.yview)
 
 # Create a frame to hold the warnings prefabs inside the canvas
 inner_frame = Frame(canvas, bg='grey')
-inner_frame.pack(side='top', fill='both', expand=True)
+inner_frame.pack(side=TOP, fill=BOTH, expand=True)
 
 # Set the size of the canvas and configure it to hold the inner frame
 canvas.create_window((0, 0), window=inner_frame, anchor='nw', tags='inner_frame')
@@ -112,11 +120,16 @@ def resize_canvas(event):
     canvas.config(scrollregion=canvas.bbox('all'))
 canvas.bind('<Configure>', resize_canvas)
 
+# score label
+score_lbl = Label(footer, text="...", font=('Arial', 22), bg='#282828', fg='lightgreen', width=50)
+score_lbl.pack(side=LEFT, fill=BOTH, padx=4, pady=4)
+
+
 # Add the submit button to the bottom of the right frame
-submit_btn = Button(right_frame, height=get_per_of_num(height, .3), text='SUBMIT', font=('Arial', 18), command=lambda: onclick_btn_submit(ce.text))
-submit_btn.pack(pady=(10, 10), padx=(10, 10), fill='both', side='bottom')
+submit_btn = Button(footer, text='SUBMIT', font=('Arial', 18), command=lambda: onclick_btn_submit(ce.text))
+submit_btn.pack(pady=(4, 4), padx=(0, 4), fill=BOTH, side=RIGHT, expand=True)
 submit_btn['fg'] = 'gold'
-submit_btn['bg'] = 'black'
+submit_btn['bg'] = '#282828'
 
 root.mainloop()
 #endregion

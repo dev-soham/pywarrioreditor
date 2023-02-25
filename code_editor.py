@@ -9,14 +9,8 @@ class CodeEditor:
         self.scrollbar = Scrollbar(self.parent)
         self.scrollbar.pack(side=RIGHT, fill=Y)
 
-        self.text = Text(self.parent, yscrollcommand=self.scrollbar.set)
-        self.text.pack(fill=BOTH)
-
-        self.console_lable = Label(self.parent, text="Console", font=('Arial', 18))
-        self.console_lable.pack(fill=BOTH)
-
-        self.console = Label(self.parent, text="...", font=('Arial', 18), bg='black', fg='red')
-        self.console.pack(fill=BOTH)
+        self.text = Text(self.parent, wrap=WORD, yscrollcommand=self.scrollbar.set, bg='#282828', fg='hotpink', insertbackground='white')
+        self.text.pack( fill=BOTH, expand=True)
 
         # Bind keyboard shortcuts
         self.text.bind("<Control-c>", self.copy_text)

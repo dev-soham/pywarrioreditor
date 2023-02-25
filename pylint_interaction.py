@@ -37,15 +37,30 @@ def get_output_lines(filepath) -> list:
     return output
 
 
+def get_output_lines_count(filepath) -> int:
+    """This method will return the count of output's lines"""
+    return len(get_output_lines(filepath))
+
+
 def get_output_warnings(filepath) -> list:
     """This method will return the output's in lines by given filepath"""
-    results = []
+    result = []
     output_lines = get_output_lines(filepath)
     for line in output_lines:
-        fifth_colon = line.find(':', line.find(':', line.find(':', line.find(':') + 1) + 1) + 1)
-        result = line[fifth_colon + 2:]
-        results.append(result)
-    return results
+        # Get the line number, column number, warning code, and warning message
+        parts = line.split(':')
+        ln = int(parts[1])
+        cn = int(parts[2])
+        wcode = parts[3].strip()
+        wmsg = parts[4].strip()
+
+        # Store the values in a dictionary and append it to the list
+        winfo = {'ln': ln, 'cn': cn, 'wcode': wcode, 'wmsg': wmsg}
+        result.append(winfo)
+
+    return result
+
+
 
 
 
