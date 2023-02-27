@@ -1,14 +1,14 @@
 # PyWarrior
-- a 2D top-down game made for python developers :)
+- Python code analysis software with readability and optimization checks (using pylint).
 
 <br>
 
 # Task List :
 - [x] Basic Structure of GUI
 - [x] Pylint Integration
-- [ ] Improve GUI
-- [ ] Improve in-build Code Editor
-- [ ] Refactor Code of this week
+- [x] Improve GUI
+- [x] Improve in-build Code Editor
+- [x] Refactor Code of this week
 
 <br>
 
