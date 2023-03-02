@@ -1,4 +1,4 @@
-# PyWarrior
+# PyWarrior Editor
 - Python code analysis software with readability and optimization checks (using pylint).
 
 <br>
